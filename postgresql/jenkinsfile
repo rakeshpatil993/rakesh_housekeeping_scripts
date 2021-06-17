@@ -4,27 +4,27 @@ pipeline{
 stages {
             stage('check input parameter'){
             steps{
-                      echo "${params.DB_SERVER_LIST}"
-                      echo "${params.Unix_User_Pass}"
-                      echo "${params.Unix_User}"
+                      echo "${params.db_server_list}"
+                      echo "${params.unix_user_pass}"
+                      echo "${params.unix_user}"
                      }
            }
             stage('psql log cleanup') {
               steps {
-               for ( db_server in ${params.DB_SERVER_LIST} )
+               for ( db_server in ${params.db_server_list} )
                    {
                    sh """
-                   sshpass -p \${params.Unix_User_Pass} ssh \${params.Unix_User}@\${db_server} "bash" < ./postgresql/clean-postgreslog.sh
+                   sshpass -p \${params.unix_user_pass} ssh \${params.unix_user}@\${db_server} "bash" < ./postgresql/clean-postgreslog.sh
                    if [ $? -eq 0 ]
                          then
                             echo " "
                             echo " "
-                            echo "############## Psql log cleanup done on ${DB_SERVER}  ########### "
+                            echo "############## Psql log cleanup done on \${db_server}  ########### "
                             echo " "
                             echo " "
                          else
                                  echo " "
-                                 echo "############## Psql log cleanup failed on ${DB_SERVER}########### "
+                                 echo "############## Psql log cleanup failed on \${db_server}########### "
                                  echo " "
                                  exit 1
                          fi
