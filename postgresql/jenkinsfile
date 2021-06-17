@@ -13,21 +13,7 @@ stages {
               steps {
                for ( db_server in ${params.db_server_list} )
                    {
-                   sh "sshpass -p \${params.unix_user_pass} ssh \${params.unix_user}@\${db_server} "bash" < ./postgresql/clean-postgreslog.sh
-                   if [ $? -eq 0 ]
-                         then
-                            echo " "
-                            echo " "
-                            echo "############## Psql log cleanup done on \${db_server}  ########### "
-                            echo " "
-                            echo " "
-                         else
-                                 echo " "
-                                 echo "############## Psql log cleanup failed on \${db_server}########### "
-                                 echo " "
-                                 exit 1
-                         fi
-                   "
+                   sh "sshpass -p \${params.unix_user_pass} ssh \${params.unix_user}@\${db_server} "bash" < ./postgresql/clean-postgreslog.sh"
                    }
             }
         }
