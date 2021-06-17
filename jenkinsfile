@@ -1,0 +1,36 @@
+pipeline{
+    agent any
+   
+stages {
+            stage('check input parameter'){
+            steps{
+                      echo "${params.DB_SERVER_LIST}"
+                      echo "${params.Unix_User_Pass}"
+                      echo "${params.Unix_User}"
+                     }
+           }
+            stage('psql log cleanup') {
+              steps {
+               for ( db_server in ${params.DB_SERVER_LIST} )
+                   {
+                   sh """
+                   sshpass -p \${params.Unix_User_Pass} ssh \${params.Unix_User}@\${db_server} "bash" < ./postgresql/clean-postgreslog.sh
+                   if [ $? -eq 0 ]
+                         then
+                            echo " "
+                            echo " "
+                            echo "############## Psql log cleanup done on ${DB_SERVER}  ########### "
+                            echo " "
+                            echo " "
+                         else
+                                 echo " "
+                                 echo "############## Psql log cleanup failed on ${DB_SERVER}########### "
+                                 echo " "
+                                 exit 1
+                         fi
+                   """
+                   }
+            }
+        }
+    }
+}
