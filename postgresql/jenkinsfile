@@ -1,6 +1,10 @@
 pipeline{
     agent any
-   
+    
+    environment {
+        EXAMPLE_CREDS = credentials('rak-credentials-id')
+    }
+ 
 stages {
             stage('check input parameter'){
             steps{
@@ -16,7 +20,7 @@ stages {
             def userpass = ${params.unix_user_pass}
             def user = ${params.unix_user}
                for ( db_server in machines ) {
-               sh "sshpass -p userpass ssh user@\${db_server} "bash" < ./postgresql/clean-postgreslog.sh"
+               sh "sshpass -p ${EXAMPLE_CREDS_PSW} ssh ${EXAMPLE_CREDS_USR}@\${db_server} "bash" < ./postgresql/clean-postgreslog.sh"
                }
              }
            } 
