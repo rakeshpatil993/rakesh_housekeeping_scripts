@@ -17,8 +17,6 @@ stages {
             steps {
             script {
             def machines = ${params.db_server_list}
-            def userpass = ${params.unix_user_pass}
-            def user = ${params.unix_user}
                for ( db_server in machines ) {
                sh "sshpass -p ${EXAMPLE_CREDS_PSW} ssh ${EXAMPLE_CREDS_USR}@\${db_server} "bash" < ./postgresql/clean-postgreslog.sh"
                }
