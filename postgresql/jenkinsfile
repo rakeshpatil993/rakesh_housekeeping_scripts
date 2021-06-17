@@ -13,8 +13,7 @@ stages {
               steps {
                for ( db_server in ${params.db_server_list} )
                    {
-                   sh "
-                   sshpass -p \${params.unix_user_pass} ssh \${params.unix_user}@\${db_server} "bash" < ./postgresql/clean-postgreslog.sh
+                   sh "sshpass -p \${params.unix_user_pass} ssh \${params.unix_user}@\${db_server} "bash" < ./postgresql/clean-postgreslog.sh
                    if [ $? -eq 0 ]
                          then
                             echo " "
