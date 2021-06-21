@@ -17,7 +17,7 @@ stages {
                for ( db_server in machines.size() ) {
                   def remote = [:]
                    remote.name = 'test'
-                   remote.host = "machines.get(i)"
+                   remote.host = "172.31.9.40"
                    remote.user = 'root'
                    remote.password = 'root123'
                    remote.allowAnyHosts = true
