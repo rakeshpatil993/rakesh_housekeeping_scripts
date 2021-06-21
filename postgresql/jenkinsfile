@@ -15,7 +15,17 @@ stages {
             script {
             def machines = ${params.db_server_list}
                for ( db_server in machines ) {
-               sh "sshpass -p \${EXAMPLE_CREDS_PSW} ssh \${EXAMPLE_CREDS_USR}@\${db_server} "bash" < ./postgresql/clean-postgreslog.sh"
+                  def remote = [:]
+                   remote.name = 'test'
+                   remote.host = "${db_server}"
+                   remote.user = 'root'
+                   remote.password = 'root123'
+                   remote.allowAnyHosts = true
+                   stage('Remote SSH') {
+                     sshCommand remote: remote, command: "ls -lrt /root/postgres"
+                     sshCommand remote: remote, command: "for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done"
+                 }
+  
                }
              }
            } 
