@@ -17,7 +17,7 @@ stages {
                for ( db_server in machines ) {
                   def remote = [:]
                    remote.name = 'test'
-                   remote.host = "\${db_server}"
+                   remote.host = "\$db_server"
                    remote.user = 'root'
                    remote.password = 'root123'
                    remote.allowAnyHosts = true
