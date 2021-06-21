@@ -1,10 +1,7 @@
 pipeline{
     agent any
     
-    environment {
-        EXAMPLE_CREDS = credentials('rak-credentials-id')
-    }
- 
+
 stages {
             stage('check input parameter'){
             steps{
