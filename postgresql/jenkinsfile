@@ -13,7 +13,7 @@ stages {
             stage('psql log cleanup') {
             steps {
             script {
-            def machines = ${params.db_server_list}
+            def machines = "${params.db_server_list}"
                for ( db_server in machines ) {
                   def remote = [:]
                    remote.name = 'test'
