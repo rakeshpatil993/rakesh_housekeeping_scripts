@@ -14,7 +14,7 @@ stages {
             steps {
             script {
             def machines = "${params.db_server_list}"
-               for ( db_server in machines.size() ) {
+               for ( db_server in env.machines.size() ) {
                   def remote = [:]
                    remote.name = 'test'
                    remote.host = "172.31.9.40"
