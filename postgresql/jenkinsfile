@@ -14,10 +14,10 @@ stages {
             steps {
             script {
             def machines = "${params.db_server_list}"
-               for ( db_server in machines ) {
+               for ( db_server in machines.size() ) {
                   def remote = [:]
                    remote.name = 'test'
-                   remote.host = "\$env.jdb_server"
+                   remote.host = "machines.get(i)"
                    remote.user = 'root'
                    remote.password = 'root123'
                    remote.allowAnyHosts = true
